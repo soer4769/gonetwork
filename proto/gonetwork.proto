@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/gonetwork/proto/TCPHandshake;TCPHandshake";
+
+package TCPHandshake;
+
+service Handshake {
+  rpc ConnSend(SYN) returns (ACK) {}
+}
+
+message SYN {
+  int32 num = 1;
+}
+
+message ACK {
+  int32 num = 1;
+}
