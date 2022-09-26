@@ -12,6 +12,8 @@ protocol buffers are developed by Google as a "language-neutral, platform-neutra
 
 Conveniently, it is useful for developing programs to communicate with each other over a network. 
 
+-------------------------------------------
+
 b) *Does your implementation use threads or processes? Why is it not realistic to use threads?*
 
 Our implementation uses processes. 
@@ -24,6 +26,8 @@ a thread would only pass through the Application layer instead of all the 7 laye
 
 If you were accurately simulating a package delivery (like we do with a process), then we will go through all the layers. 
 
+-------------------------------------------
+
 c) *How do you handle message re-ordering?*
 
 Packets can be fragmented and arrive in out-of-sequence order.
@@ -31,12 +35,16 @@ The job of TCP is that it receives the packets, buffer and reorder them
 before presenting the data to an application.
 I.e. a streaming service needs the data ordered to show the movie chronologically.
 
+-------------------------------------------
+
 d) *How do you handle message loss?*
 
 Transmission Control Protocol (TCP) will detect packet loss
 in which it will try and perform a retransmission to make sure that messaging is reliable.
 In TCP, packet loss affects the time it takes for certain items to arrive to the other connection.
 I.e. in real-time applications, such as online games, packet loss will affect the quality of experience (QoE).
+
+-------------------------------------------
 
 e) *Why is the 3-way handshake important?*
 
