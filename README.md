@@ -32,14 +32,22 @@ Lastly the client sends back an ACK which concludes the 3-way handshake.
 ** Output **
 
 // Server
+
 2022/09/26 11:33:17 server listening at 127.0.0.1:50051
+
 2022/09/26 11:33:21 Received: 0
+
 2022/09/26 11:33:21 Received: 1
+
 2022/09/26 11:33:21 Received: 2
 
 // Client
+
 2022/09/26 11:33:21 Establishing TCP connection with server...
+
 2022/09/26 11:33:21 handshake 0
+
 2022/09/26 11:33:21 handshake 1
+
 2022/09/26 11:33:21 handshake 2
 2022/09/26 11:33:21 TCP handshake successfull
