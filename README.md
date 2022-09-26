@@ -1,6 +1,8 @@
+# Mandatory Hand-in 2 (TCP/IP Simulator in Go)
+
 Repository for assignment 2 by the group "Cat Squish Gang".
 
-** Answered Questions **
+## Answered Questions
 a) What are packages in your implementation? What data structure do you use to transmit data and meta-data?
 
 
@@ -25,7 +27,7 @@ First the client will try and SYN with the server,
 the server thereafter will send back a SYN/ACK in which it tries to establish connection.
 Lastly the client sends back an ACK which concludes the 3-way handshake.
 
-** Output **
+## Output
 
 // Server
 2022/09/26 11:33:17 server listening at 127.0.0.1:50051
