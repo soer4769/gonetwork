@@ -2,35 +2,34 @@ package main
 
 import (
     "context"
-    "flag"
     "log"
-    "time"
 
     "google.golang.org/grpc"
-    "google.golang.org/grpc/credentials/insecure"
     "github.com/gonetwork/proto"
 )
 
-var (
-    addr = flag.String("addr", "localhost:50051", "the address to connect to")
-)
+func Shake(c TCPHandshake.HandshakeClient) {
+    log.Printf("Establishing TCP connection with server...")
+
+    for i := int32(0); i < 3; i++ {
+        r, err := c.ConnSend(context.Background(), &TCPHandshake.SYN{Num: i})
+        if err != nil {
+            log.Fatalf("could not handshake: %v", err)
+            return
+        }
+        log.Printf("handshake %d", r.Num)
+    }
+
+    log.Printf("TCP handshake successfull")
+}
 
 func main() {
-    flag.Parse()
-
-    conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+    conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
     if err != nil {
         log.Fatalf("did not connect: %v", err)
     }
-    defer conn.Close()
     c := TCPHandshake.NewHandshakeClient(conn)
 
-
-    ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-    defer cancel()
-    r, err := c.ConnSend(ctx, &TCPHandshake.SYN{Num: 0})
-    if err != nil {
-        log.Fatalf("could not greet: %v", err)
-    }
-    log.Printf("Greeting: %s", r.Num)
+    Shake(c)
+    conn.Close()
 }
