@@ -55,6 +55,7 @@ Lastly the client sends back an ACK which concludes the 3-way handshake.
 
 ## Example Output
 
+```
 // Server
 
 2022/09/26 11:33:17 server listening at 127.0.0.1:50051
@@ -75,4 +76,5 @@ Lastly the client sends back an ACK which concludes the 3-way handshake.
 
 2022/09/26 11:33:21 handshake 2
 
-2022/09/26 11:33:21 TCP handshake successfull
+2022/09/26 11:33:21 TCP handshake successful.
+```
