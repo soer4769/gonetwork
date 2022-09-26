@@ -1,6 +1,7 @@
 Repository for assignment 2 by the group "Cat Squish Gang".
 
 ** Answered Questions **
+
 a) What are packages in your implementation? What data structure do you use to transmit data and meta-data?
 
 
