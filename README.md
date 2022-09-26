@@ -31,7 +31,7 @@ First the client will try and SYN with the server,
 the server thereafter will send back a SYN/ACK in which it tries to establish connection.
 Lastly the client sends back an ACK which concludes the 3-way handshake.
 
-## Output
+## Example Output
 
 // Server
 
