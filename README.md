@@ -9,18 +9,21 @@ b) Does your implementation use threads or processes? Why is it not realistic to
 
 
 c) How do you handle message re-ordering?
+
 Packets can be fragmented and arrive in out-of-sequence order.
 The job of TCP is that it receives the packets, buffer them and reorder them,
 before presenting the data to an application.
 I.e. a streaming service needs the data ordered in order to show the movie cronologically.
 
 d) How do you handle message loss?
+
 Transmission Control Protocol (TCP) will detect packet loss
 in which it will try and perform a retransmission to make sure that messaging is reliable.
 In TCP, packet loss affects the time it takes for certain items to arrive to the other connection.
 I.e. in real-time applications, such as online games, packet loss will affect the quality of experience (QoE).
 
 e) Why is the 3-way handshake important?
+
 A 3-way handshake is important to establish a connection between client and server.
 First the client will try and SYN with the server,
 the server thereafter will send back a SYN/ACK in which it tries to establish connection.
