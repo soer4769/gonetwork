@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type HandshakeClient interface {
-	ConnSend(ctx context.Context, in *SYN, opts ...grpc.CallOption) (*ACK, error)
+	ConnSend(ctx context.Context, in *TCPPack, opts ...grpc.CallOption) (*TCPPack, error)
 }
 
 type handshakeClient struct {
@@ -33,8 +33,8 @@ func NewHandshakeClient(cc grpc.ClientConnInterface) HandshakeClient {
 	return &handshakeClient{cc}
 }
 
-func (c *handshakeClient) ConnSend(ctx context.Context, in *SYN, opts ...grpc.CallOption) (*ACK, error) {
-	out := new(ACK)
+func (c *handshakeClient) ConnSend(ctx context.Context, in *TCPPack, opts ...grpc.CallOption) (*TCPPack, error) {
+	out := new(TCPPack)
 	err := c.cc.Invoke(ctx, "/TCPHandshake.Handshake/ConnSend", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func (c *handshakeClient) ConnSend(ctx context.Context, in *SYN, opts ...grpc.Ca
 // All implementations must embed UnimplementedHandshakeServer
 // for forward compatibility
 type HandshakeServer interface {
-	ConnSend(context.Context, *SYN) (*ACK, error)
+	ConnSend(context.Context, *TCPPack) (*TCPPack, error)
 	mustEmbedUnimplementedHandshakeServer()
 }
 
@@ -54,7 +54,7 @@ type HandshakeServer interface {
 type UnimplementedHandshakeServer struct {
 }
 
-func (UnimplementedHandshakeServer) ConnSend(context.Context, *SYN) (*ACK, error) {
+func (UnimplementedHandshakeServer) ConnSend(context.Context, *TCPPack) (*TCPPack, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConnSend not implemented")
 }
 func (UnimplementedHandshakeServer) mustEmbedUnimplementedHandshakeServer() {}
@@ -71,7 +71,7 @@ func RegisterHandshakeServer(s grpc.ServiceRegistrar, srv HandshakeServer) {
 }
 
 func _Handshake_ConnSend_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SYN)
+	in := new(TCPPack)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func _Handshake_ConnSend_Handler(srv interface{}, ctx context.Context, dec func(
 		FullMethod: "/TCPHandshake.Handshake/ConnSend",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(HandshakeServer).ConnSend(ctx, req.(*SYN))
+		return srv.(HandshakeServer).ConnSend(ctx, req.(*TCPPack))
 	}
 	return interceptor(ctx, in, info, handler)
 }
