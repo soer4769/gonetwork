@@ -5,9 +5,10 @@ import (
     "log"
     "time"
     "math/rand"
+	"google.golang.org/grpc/credentials/insecure"
 
-    "google.golang.org/grpc"
-    "github.com/gonetwork/proto"
+	"github.com/gonetwork/proto"
+	"google.golang.org/grpc"
 )
 
 type Flags struct {
@@ -60,12 +61,15 @@ func Shake(c TCPHandshake.HandshakeClient) {
 
 func main() {
     rand.Seed(time.Now().UnixNano())
-    conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+    conn, err := grpc.Dial("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
     if err != nil {
         log.Fatalf("did not connect: %v", err)
     }
     c := TCPHandshake.NewHandshakeClient(conn)
 
-    Shake(c)
-    conn.Close()
+	Shake(c)
+	err = conn.Close()
+	if err != nil {
+		return
+	}
 }
