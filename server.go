@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	packet "github.com/gonetwork/TCP_template"
 	"log"
 	"math/rand"
 	"net"
@@ -10,16 +11,6 @@ import (
 	"github.com/gonetwork/proto"
 	"google.golang.org/grpc"
 )
-
-type Flags struct {
-	SYN, ACK, FIN bool
-}
-
-type Pack struct {
-	SeqNum, AckNum uint32
-	Message        string
-	Status         Flags
-}
 
 type server struct {
 	TCPHandshake.UnimplementedHandshakeServer
@@ -34,14 +25,14 @@ func (s *server) ConnSend(_ context.Context, in *TCPHandshake.TCPPack) (*TCPHand
 		log.Printf("Recieved message from client:\n\t%+v\n", in)
 
 		// Respond with a SYN-ACK to the client.
-		ack := Pack{SeqNum: rand.Uint32(), AckNum: in.SeqNum + 1, Message: "SYN+ACK", Status: Flags{SYN: true, ACK: true}}
+		ack := packet.CreateSYNACKPacket(in)
 		log.Printf("Sending response to client:\n\t%+v\n", ack)
 
 		// send the SYN-ACK.
 		return &TCPHandshake.TCPPack{
 			SeqNum:  ack.SeqNum,
 			AckNum:  ack.AckNum,
-			Message: ack.Message,
+			Message: string(ack.Message),
 			Status: &TCPHandshake.Flags{
 				SYN: ack.Status.SYN,
 				ACK: ack.Status.ACK,
