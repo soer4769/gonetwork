@@ -5,24 +5,7 @@ import (
 	"math/rand"
 )
 
-type Flags struct {
-	SYN, ACK, FIN bool
-}
-
-type Pack struct {
-	SeqNum, AckNum uint32
-	Message        ShakeType
-	Status         Flags
-}
-
-type ShakeType string
-
-const (
-	SYN    ShakeType = "SYN"
-	ACK    ShakeType = "ACK"
-	SYNACK ShakeType = "SYN+ACK"
-	FIN    ShakeType = "FIN"
-)
+// responsible for creating TCP packets.
 
 func CreateSYNPacket() Pack {
 	return Pack{SeqNum: rand.Uint32(), Message: ACK, Status: Flags{ACK: true}}
