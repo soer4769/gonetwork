@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-// Function for sending message utilizing a pack.
+// SendMessage | Function for sending message utilizing a pack.
 func SendMessage(c TCPHandshake.HandshakeClient, p packet.Pack) (*TCPHandshake.TCPPack, error) {
 
 	// Initiating the data to be sent corresponding to the pack.
@@ -35,7 +35,7 @@ func SendMessage(c TCPHandshake.HandshakeClient, p packet.Pack) (*TCPHandshake.T
 	return r, err
 }
 
-// Perform handshake.
+// Shake | Perform handshake.
 func Shake(c TCPHandshake.HandshakeClient) {
 	log.Printf("Establishing Simulated TCP connection with server...")
 

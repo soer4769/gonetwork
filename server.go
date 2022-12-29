@@ -16,7 +16,7 @@ type server struct {
 	TCPHandshake.UnimplementedHandshakeServer
 }
 
-// handle connection handshake for a client.
+// ConnSend | handle connection handshake for a client.
 func (s *server) ConnSend(_ context.Context, in *TCPHandshake.TCPPack) (*TCPHandshake.TCPPack, error) {
 
 	// If status is SYN, a client is trying to establish a connection.
