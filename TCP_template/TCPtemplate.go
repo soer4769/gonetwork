@@ -21,15 +21,15 @@ const (
 	SYN    ShakeType = "SYN"
 	ACK    ShakeType = "ACK"
 	SYNACK ShakeType = "SYN+ACK"
+	FIN    ShakeType = "FIN"
 )
 
-func CreatePacket(msg ShakeType) Pack {
-
-	if msg == SYN {
-		return Pack{SeqNum: rand.Uint32(), Message: SYN, Status: Flags{SYN: true}}
-	}
-
+func CreateSYNPacket() Pack {
 	return Pack{SeqNum: rand.Uint32(), Message: ACK, Status: Flags{ACK: true}}
+}
+
+func CreateACKPacket() Pack {
+	return Pack{SeqNum: rand.Uint32(), Message: SYN, Status: Flags{SYN: true}}
 }
 
 func CreateSYNACKPacket(in *TCPHandshake.TCPPack) Pack {

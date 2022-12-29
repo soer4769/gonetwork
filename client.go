@@ -40,7 +40,7 @@ func Shake(c TCPHandshake.HandshakeClient) {
 	log.Printf("Establishing Simulated TCP connection with server...")
 
 	// Send a packet to the server with SYN set to 1 (true); SYN packet.
-	syn := packet.CreatePacket(packet.SYN)
+	syn := packet.CreateSYNPacket()
 	log.Printf("Sending message to server:\n\t%+v\n", syn)
 
 	r, err := SendMessage(c, syn)
@@ -52,7 +52,7 @@ func Shake(c TCPHandshake.HandshakeClient) {
 	log.Printf("Received message from server:\n\t%+v\n", r)
 
 	// Server responds with SYN-ACK packet. Client sends back an ACK packet.
-	ack := packet.CreatePacket(packet.ACK)
+	ack := packet.CreateACKPacket()
 	log.Printf("sending message to server:\n\t%+v\n", ack)
 
 	r, err = SendMessage(c, ack)
